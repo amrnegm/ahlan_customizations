@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="apply_inherit" inherit_id="website_hr_recruitment.apply">
+            <xpath expr="//section[@id='forms']//div[4]" position="after">
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="department_id">Department</label>
+                    <div class="col-md-7 col-sm-8">
+                        <t t-set="departments" t-value="job.env['hr.department'].search([])"/>
+                        <select class="form-control" name="department_id" required="True">
+                            <t t-foreach="departments" t-as="dept">
+                                <option t-att-value="dept.id">
+                                    <t t-esc="dept.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="address">Address</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input type="text" t-att-value="default.get('address')" class="form-control" name="address"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="city">City</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input type="text" t-att-value="default.get('city')" class="form-control" name="city"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="marital_status">Marital Status</label>
+                    <div class="col-md-7 col-sm-8">
+                        <select class="form-control" name="marital_status">
+                                <option value="single">
+                                    Single
+                                </option>
+                                <option value="married">
+                                    Married
+                                </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="current_job">Current Job</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input type="text" t-att-value="default.get('current_job')" class="form-control" name="current_job"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="offered_skills">Skills you offer</label>
+                    <div class="col-md-7 col-sm-8">
+                        <textarea t-att-value="default.get('offered_skills')" class="form-control" name="offered_skills"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="courses">Courses you got</label>
+                    <div class="col-md-7 col-sm-8">
+                        <textarea t-att-value="default.get('courses')" class="form-control" name="courses"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="da3wa_experience">Previous Da3wa Experience</label>
+                    <div class="col-md-7 col-sm-8">
+                        <textarea t-att-value="default.get('da3wa_experience')" class="form-control" name="da3wa_experience"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="facebook_url">Facebook URL</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input type="text" t-att-value="default.get('facebook_url')" class="form-control" name="facebook_url"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="know_ahlan_how">How did you know about Ahlan?</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input type="text" t-att-value="default.get('know_ahlan_how')" class="form-control" name="know_ahlan_how"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-4 control-label" for="notes">Notes</label>
+                    <div class="col-md-7 col-sm-8">
+                        <textarea t-att-value="default.get('notes')" class="form-control" name="notes"/>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <record model="ir.ui.view" id="crm_case_form_view_job">
+            <field name="name">jobs.recruitment.form.inherit</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+            <field name="arch" type="xml">
+                <field name="categ_ids" position="after">
+                    <field name="address"/>
+                    <field name="city"/>
+                    <field name="marital_status"/>
+                    <field name="academic_degree"/>
+                    <field name="current_job"/>
+                    <field name="languages"/>
+                    <field name="offered_skills"/>
+                    <field name="courses"/>
+                    <field name="da3wa_experience"/>
+                    <field name="facebook_url"/>
+                    <field name="know_ahlan_how"/>
+                    <field name="notes"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
