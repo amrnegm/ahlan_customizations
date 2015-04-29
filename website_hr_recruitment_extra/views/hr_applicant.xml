@@ -2,7 +2,7 @@
 <openerp>
     <data>
         <template id="apply_inherit" inherit_id="website_hr_recruitment.apply">
-            <input name="job_id" position="replace">
+            <xpath expr="//input[@name='job_id']" position="replace">
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="department_id">Department</label>
                     <div class="col-md-7 col-sm-8">
@@ -16,7 +16,7 @@
                         </select>
                     </div>
                 </div>
-            </input>
+            </xpath>
             <xpath expr="//section[@id='forms']//div[4]" position="after">
                 <div class="form-group">
                     <label class="col-md-3 col-sm-4 control-label" for="address">Address</label>
