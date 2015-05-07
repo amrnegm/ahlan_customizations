@@ -18,10 +18,13 @@ class Applicant(models.Model):
     know_ahlan_how = fields.Char('How do you know Ahlan')
     notes = fields.Text('Notes')
 
-    @api.v7
-    def create(self, cr, uid, vals, context):
-        context = dict(context or {})
+    @api.model
+    def create(self, vals):
+        context = dict(self.env.context or {})
         context['mail_create_nolog'] = True
+        cr = self.env.cr
+        uid = self.env.user.id
+        self.context = context
         if vals.get('department_id') and not context.get('default_department_id'):
             context['default_department_id'] = vals.get('department_id')
         # if vals.get('job_id') or context.get('default_job_id'):
@@ -31,15 +34,15 @@ class Applicant(models.Model):
             vals['date_open'] = fields.datetime.now()
         if 'stage_id' in vals:
             vals.update(self.onchange_stage_id(cr, uid, None, vals.get('stage_id'), context=context)['value'])
-        obj_id = super(Applicant, self).create(cr, uid, vals, context=context)
-        applicant = self.browse(cr, uid, obj_id, context=context)
+        obj = super(Applicant, self).create(vals)
+        applicant = self.browse(obj.id)
         if applicant.job_id:
             name = applicant.partner_name if applicant.partner_name else applicant.name
             self.pool['hr.job'].message_post(
                 cr, uid, [applicant.job_id.id],
                 body=_('New application from %s') % name,
                 subtype="hr_recruitment.mt_job_applicant_new", context=context)
-        return obj_id
+        return obj
 
     def onchange_job(self, cr, uid, ids, job_id=False, context=None):
         return {'value': {}}
