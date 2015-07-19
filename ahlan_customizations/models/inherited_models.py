@@ -50,10 +50,3 @@ class Applicant(models.Model):
         #     department_id = job_record and job_record.department_id and job_record.department_id.id or False
         #     user_id = job_record and job_record.user_id and job_record.user_id.id or False
         # return {'value': {'department_id': department_id, 'user_id': user_id}}
-
-
-class Language(models.Model):
-    _name = 'language'
-
-    applicant = fields.Many2one('hr.applicant', required=True)
-    name = fields.Char('Language', required=True)
