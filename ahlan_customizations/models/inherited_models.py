@@ -50,3 +50,106 @@ class Applicant(models.Model):
         #     department_id = job_record and job_record.department_id and job_record.department_id.id or False
         #     user_id = job_record and job_record.user_id and job_record.user_id.id or False
         # return {'value': {'department_id': department_id, 'user_id': user_id}}
+
+
+class CRMLead(models.Model):
+    _inherit = 'crm.lead'
+
+    SOCIAL_MEDIA = [
+        ('facebook', 'Facebook'),
+        ('twitter', 'Twitter'),
+        ('interpals', 'Interpals'),
+        ('any_talk', 'AnyTalk'),
+        ('i_talki', 'Italki'),
+        ('youtube', 'Youtube')
+    ]
+
+    PAGE_TYPES = [
+        ('page', 'Page'),
+        ('group', 'Group'),
+        ('hashtag', 'Hashtag'),
+        ('twitter', 'Twitter'),
+    ]
+
+    SUBJECTS = [
+        ('christianity', 'Christianity'),
+        ('atheism', 'Atheism'),
+        ('food', 'Food'),
+        ('fastion', 'Fashion'),
+        ('anger_management', 'Anger Management'),
+        ('book_store', 'Book Store'),
+        ('photography', 'Photography'),
+        ('travelling', 'Travelling'),
+        ('women_rights', 'Women Rights'),
+        ('islam', 'Islam'),
+        ('ethics', 'Ethics'),
+        ('anti_racism_equality', 'Anti-racism Equality'),
+        ('quran', 'Quran'),
+        ('purpose_of_life', 'Purpose of Life'),
+        ('new_muslim', 'New Muslim'),
+        ('prophet_muhammed', 'Prophet Muhammed'),
+    ]
+
+    ENGAGEMENT_TYPES = [
+        ('engaging_comment', 'Engaging Comment'),
+        ('text', 'Text'),
+        ('video', 'Video'),
+        ('image', 'Image'),
+    ]
+
+    FEEDBACK_TYPES = [
+        ('like', 'Like'),
+        ('comment', 'Comment'),
+        ('positive_comment', 'Positive Comment'),
+    ]
+
+    REGIONS = [
+        ('europe_and_russia', 'Europe & Russia'),
+        ('far_east', 'Far East'),
+        ('usa_canada_and_australia', 'USA, Canada & Australia'),
+        ('latin_america', 'Latin America'),
+        ('africa', 'Africa'),
+        ('unavailable', 'Unavailable'),
+    ]
+
+    GENDERS = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+    ]
+
+    RELIGIONS = [
+        ('bahai', "Baha'i"),
+        ('buddhism', 'Buddhism'),
+        ('christianity', 'Christianity'),
+        ('confucianism', 'Confucianism'),
+        ('hinduism', 'Hinduism'),
+        ('islam', 'Islam'),
+        ('jainism', 'Jainism'),
+        ('judaism', 'Judaism'),
+        ('shinto', 'Shinto'),
+        ('sikhism', 'Sikhism'),
+        ('taoism', 'Taoism'),
+        ('zoroastrianism', 'Zoroastrianism'),
+        ('atheism', 'Atheism'),
+        ('agnosticism', 'Agnosticism'),
+    ]
+
+    first_time_meeting = fields.Date(string='First-time Meeting', required=True)
+    user_id = fields.Many2one('res.users', string='Volunteer Member',
+                              help='Volunteering Team who brought the opportunity', required=True)
+    section_id = fields.Many2one('crm.case.section', string='Volunteer Team')
+    social_media = fields.Selection(SOCIAL_MEDIA, 'Social Media',
+                                    help='Where the opportunity was found')
+    page_name = fields.Char('Page Name')
+    page_type = fields.Selection(PAGE_TYPES, 'Page Type')
+    page_subject = fields.Selection(SUBJECTS, 'Page Subject')
+    page_link = fields.Char('Page Link')
+    post_subject = fields.Selection(SUBJECTS, 'Post Subject')
+    post_link = fields.Char('Post Link')
+    engagement_type = fields.Selection(ENGAGEMENT_TYPES, 'Engagement Type')
+    feedback_type = fields.Selection(FEEDBACK_TYPES, 'Feedback Type')
+    feedback = fields.Text('Feedback')
+    region = fields.Selection(REGIONS, 'Region')
+    gender = fields.Selection(GENDERS, 'Gender', required=True)
+    religion = fields.Selection(RELIGIONS, 'Religion')
+    description = fields.Text(string='Comment')

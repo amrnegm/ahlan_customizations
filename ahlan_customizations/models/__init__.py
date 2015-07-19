@@ -1,1 +1,2 @@
-import inherited_models.py, language
+import inherited_models
+import language

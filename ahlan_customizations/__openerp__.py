@@ -5,9 +5,15 @@
     'summary': 'A variety of customizations in multiple modules',
     'description': """""",
     'author': 'Amr Negm',
-    'depends': ['hr_recruitment', 'website_hr_recruitment'],
+    'depends': [
+        'hr_recruitment',
+        'website_hr_recruitment',
+        'crm',
+        'sale_crm',
+        'hr',
+    ],
     'data': [
-        'views/hr_applicant.xml',
+        'views/inherited_views.xml',
     ],
     'demo': [
     ],
