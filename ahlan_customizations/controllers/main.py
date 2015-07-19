@@ -4,7 +4,9 @@ from openerp import http
 from openerp.addons.website_hr_recruitment.controllers import main
 from openerp import SUPERUSER_ID
 
+
 class website_hr_recruitment_extra(main.website_hr_recruitment):
+
     @http.route('/jobs/thankyou', methods=['POST'], type='http', auth="public", website=True)
     def jobs_thankyou(self, **post):
         error = {}
@@ -22,11 +24,11 @@ class website_hr_recruitment_extra(main.website_hr_recruitment):
         # public user can't create applicants (duh)
         env = request.env(user=SUPERUSER_ID)
         value = {
-            'source_id' : env.ref('hr_recruitment.source_website_company').id,
+            'source_id': env.ref('hr_recruitment.source_website_company').id,
             'name': '%s\'s Application' % post.get('partner_name'),
         }
         # for f in ['email_from', 'partner_name', 'description']:
-        #     value[f] = post.get(f)
+        # value[f] = post.get(f)
         # for f in ['department_id', 'job_id']:
         #     value[f] = int(post.get(f) or 0)
         # # Retro-compatibility for saas-3. "phone" field should be replace by "partner_phone" in the template in trunk.
